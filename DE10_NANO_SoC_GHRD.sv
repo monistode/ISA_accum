@@ -447,7 +447,7 @@ if (
             end
 
             // LOAD $IMM
-            8'b11110000: begin
+            8'b00010000: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) ACC <= cur_instruction[23:8];
             end
 
@@ -457,7 +457,7 @@ if (
             end
 
             // LOAD1
-            8'b01110000: begin
+            8'b01000001: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -492,7 +492,7 @@ if (
             end
 
             // LOAD2
-            8'b01110001: begin
+            8'b01000010: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -527,17 +527,17 @@ if (
             end
 
             // LOADI1
-            8'b00100011: begin
+            8'b00011111: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) ACC <= IR1;
             end
 
             // LOADI2
-            8'b00100100: begin
+            8'b00100000: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) ACC <= IR2;
             end
 
             // STORE1
-            8'b00000100: begin
+            8'b00000011: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         write_req <= 1;
@@ -596,7 +596,7 @@ if (
             end
 
             // STORE1 $IMM
-            8'b11110001: begin
+            8'b00010001: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         write_req <= 1;
@@ -655,7 +655,7 @@ if (
             end
 
             // STORE2
-            8'b00100111: begin
+            8'b00100011: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         write_req <= 1;
@@ -714,7 +714,7 @@ if (
             end
 
             // STORE2 $IMM
-            8'b11110010: begin
+            8'b00010010: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         write_req <= 1;
@@ -773,37 +773,37 @@ if (
             end
 
             // STOREF
-            8'b00000101: begin
+            8'b00000100: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) FR <= ACC;
             end
 
             // STOREI1
-            8'b00100101: begin
+            8'b00100001: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) IR1 <= ACC;
             end
 
             // STOREI2
-            8'b00100110: begin
+            8'b00100010: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) IR2 <= ACC;
             end
 
             // TI12
-            8'b01001100: begin
+            8'b00111111: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) IR2 <= IR1;
             end
 
             // TI21
-            8'b01001101: begin
+            8'b01000000: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) IR1 <= IR2;
             end
 
             // MOV $IMM
-            8'b10000001: begin
+            8'b00000000: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) ACC <= cur_instruction[23:8];
             end
 
             // PUSH
-            8'b00000111: begin
+            8'b00000101: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         SP <= SP - 16'd2;
@@ -823,7 +823,7 @@ if (
             end
 
             // POP
-            8'b00001010: begin
+            8'b00000111: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         SP <= SP + 16'd2;
@@ -843,7 +843,7 @@ if (
             end
 
             // PUSHF
-            8'b00001000: begin
+            8'b00000110: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         SP <= SP - 16'd2;
@@ -863,7 +863,7 @@ if (
             end
 
             // POPF
-            8'b00001011: begin
+            8'b00001000: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         SP <= SP + 16'd2;
@@ -883,7 +883,7 @@ if (
             end
 
             // PUSHI1
-            8'b01000100: begin
+            8'b00111101: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         SP <= SP - 16'd2;
@@ -903,7 +903,7 @@ if (
             end
 
             // POPI1
-            8'b00001100: begin
+            8'b00001001: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         SP <= SP + 16'd2;
@@ -923,7 +923,7 @@ if (
             end
 
             // PUSHI2
-            8'b00101000: begin
+            8'b00100100: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         SP <= SP - 16'd2;
@@ -943,7 +943,7 @@ if (
             end
 
             // POPI2
-            8'b00101001: begin
+            8'b00100101: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         SP <= SP + 16'd2;
@@ -963,7 +963,7 @@ if (
             end
 
             // ADD [$MEM]
-            8'b00001101: begin
+            8'b00001010: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1013,7 +1013,7 @@ if (
             end
 
             // ADDI1
-            8'b00101010: begin
+            8'b00100110: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1063,7 +1063,7 @@ if (
             end
 
             // ADDI2
-            8'b00101011: begin
+            8'b00100111: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1113,7 +1113,7 @@ if (
             end
 
             // SUB [$MEM]
-            8'b00001110: begin
+            8'b00001011: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1163,7 +1163,7 @@ if (
             end
 
             // SUBI1
-            8'b00101100: begin
+            8'b00101000: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1213,7 +1213,7 @@ if (
             end
 
             // SUBI2
-            8'b00101101: begin
+            8'b00101001: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1263,7 +1263,7 @@ if (
             end
 
             // MUL [$MEM]
-            8'b00010001: begin
+            8'b00001110: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1313,7 +1313,7 @@ if (
             end
 
             // MULI1
-            8'b00101110: begin
+            8'b00101010: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1363,7 +1363,7 @@ if (
             end
 
             // MULI2
-            8'b00101111: begin
+            8'b00101011: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1413,7 +1413,7 @@ if (
             end
 
             // DIV [$MEM]
-            8'b00010010: begin
+            8'b00001111: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1468,7 +1468,7 @@ if (
             end
 
             // DIVI1
-            8'b00110000: begin
+            8'b00101100: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1523,7 +1523,7 @@ if (
             end
 
             // DIVI2
-            8'b00110001: begin
+            8'b00101101: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1578,7 +1578,7 @@ if (
             end
 
             // INC
-            8'b00001111: begin
+            8'b00001100: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         tmp_word <= 16'd1;
@@ -1603,7 +1603,7 @@ if (
             end
 
             // IN1
-            8'b00110010: begin
+            8'b00101110: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         tmp_word <= 16'd1;
@@ -1628,7 +1628,7 @@ if (
             end
 
             // IN2
-            8'b00110011: begin
+            8'b00101111: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         tmp_word <= 16'd1;
@@ -1653,7 +1653,7 @@ if (
             end
 
             // DEC
-            8'b00010000: begin
+            8'b00001101: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         tmp_word <= 16'd1;
@@ -1678,7 +1678,7 @@ if (
             end
 
             // DE1
-            8'b00110100: begin
+            8'b00110000: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         tmp_word <= 16'd1;
@@ -1703,7 +1703,7 @@ if (
             end
 
             // DE2
-            8'b00110101: begin
+            8'b00110001: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         tmp_word <= 16'd1;
@@ -1728,7 +1728,7 @@ if (
             end
 
             // AND [$MEM]
-            8'b00010011: begin
+            8'b00010000: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1778,7 +1778,7 @@ if (
             end
 
             // ANDI1
-            8'b00110110: begin
+            8'b00110010: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1828,7 +1828,7 @@ if (
             end
 
             // ANDI2
-            8'b00110111: begin
+            8'b00110011: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1878,7 +1878,7 @@ if (
             end
 
             // OR [$MEM]
-            8'b00010100: begin
+            8'b00010001: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1928,7 +1928,7 @@ if (
             end
 
             // ORI1
-            8'b00111000: begin
+            8'b00110100: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -1978,7 +1978,7 @@ if (
             end
 
             // ORI2
-            8'b00111001: begin
+            8'b00110101: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2028,7 +2028,7 @@ if (
             end
 
             // XOR [$MEM]
-            8'b00010101: begin
+            8'b00010010: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2078,7 +2078,7 @@ if (
             end
 
             // XORI1
-            8'b00111010: begin
+            8'b00110110: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2128,7 +2128,7 @@ if (
             end
 
             // XORI2
-            8'b00111011: begin
+            8'b00110111: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2178,7 +2178,7 @@ if (
             end
 
             // NOT [$MEM]
-            8'b00010110: begin
+            8'b00010011: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2228,7 +2228,7 @@ if (
             end
 
             // NOTI1
-            8'b00111100: begin
+            8'b00111000: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2278,7 +2278,7 @@ if (
             end
 
             // NOTI2
-            8'b01001001: begin
+            8'b00111110: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2328,7 +2328,7 @@ if (
             end
 
             // LSH $NUM
-            8'b10000010: begin
+            8'b00000001: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_EXEC: begin
                         ACC <= ACC << cur_instruction[23:8];
@@ -2349,7 +2349,7 @@ if (
             end
 
             // RSH $NUM
-            8'b10000011: begin
+            8'b00000010: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_EXEC: begin
                         ACC <= ACC >> cur_instruction[23:8];
@@ -2370,7 +2370,7 @@ if (
             end
 
             // CALL label
-            8'b10000100: begin
+            8'b00000100: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         SP <= SP - 16'd2;
@@ -2391,7 +2391,7 @@ if (
             end
 
             // CALL
-            8'b00010111: begin
+            8'b00010100: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         SP <= SP - 16'd2;
@@ -2412,7 +2412,7 @@ if (
             end
 
             // RET
-            8'b00011000: begin
+            8'b00010101: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         SP <= SP + 16'd2;
@@ -2431,7 +2431,7 @@ if (
             end
 
             // CMP [$MEM]
-            8'b00011001: begin
+            8'b00010110: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2481,7 +2481,7 @@ if (
             end
 
             // CMPI1
-            8'b00111101: begin
+            8'b00111001: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2531,7 +2531,7 @@ if (
             end
 
             // CMPI2
-            8'b00111110: begin
+            8'b00111010: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2581,7 +2581,7 @@ if (
             end
 
             // CMP %IMM
-            8'b10000101: begin
+            8'b00000101: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         tmp_word <= cur_instruction[23:8];
@@ -2609,7 +2609,7 @@ if (
             end
 
             // TEST [$MEM]
-            8'b10011111: begin
+            8'b00001111: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2659,7 +2659,7 @@ if (
             end
 
             // TESTI1
-            8'b00111111: begin
+            8'b00111011: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2709,7 +2709,7 @@ if (
             end
 
             // TESTI2
-            8'b01000000: begin
+            8'b00111100: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
                         read_req <= 1;
@@ -2759,77 +2759,77 @@ if (
             end
 
             // JMP $NUM
-            8'b10000111: begin
+            8'b00000111: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= cur_instruction[23:8];
             end
 
             // JMP
-            8'b00011011: begin
+            8'b00010111: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= ACC;
             end
 
             // JE $NUM
-            8'b10001000: begin
+            8'b00001000: begin
                 if (FR[3] & cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= cur_instruction[23:8];
             end
 
             // JE
-            8'b00011100: begin
+            8'b00011000: begin
                 if (FR[3]& cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= ACC;
             end
 
             // JNE $NUM
-            8'b10001001: begin
+            8'b00001001: begin
                 if (~FR[3] & cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= cur_instruction[23:8];
             end
 
             // JNE
-            8'b00011101: begin
+            8'b00011001: begin
                 if (~FR[3]& cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= ACC;
             end
 
             // JG $NUM
-            8'b10001010: begin
+            8'b00001010: begin
                 if (FR[3] & FR[2] & cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= cur_instruction[23:8];
             end
 
             // JG
-            8'b00011110: begin
+            8'b00011010: begin
                 if (FR[3] & FR[2] & cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= ACC;
             end
 
             // JGE $NUM
-            8'b10001011: begin
+            8'b00001011: begin
                 if (FR[0] & cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= cur_instruction[23:8];
             end
 
             // JG
-            8'b00011111: begin
+            8'b00011011: begin
                 if (FR[0] & cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= ACC;
             end
 
             // JL $NUM
-            8'b10001100: begin
+            8'b00001100: begin
                 if ((FR[1] ^ FR[2]) & cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= cur_instruction[23:8];
             end
 
             // JL
-            8'b00100000: begin
+            8'b00011100: begin
                 if ((FR[1] ^ FR[2]) & cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= ACC;
             end
 
             // JLE $NUM
-            8'b10001101: begin
+            8'b00001101: begin
                 if ((FR[0] | FR[3]) & cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= cur_instruction[23:8];
             end
 
             // JLE
-            8'b00100001: begin
+            8'b00011101: begin
                 if ((FR[0] | FR[3]) & cur_cpu_state == CPU_STATE_INSTR_EXEC) PC <= ACC;
             end
 
             // IN $IMM
-            8'b10001110: begin
+            8'b00001110: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_EXEC: begin
                         uart_read_req <= 1;
@@ -2845,7 +2845,7 @@ if (
             end
 
             // OUT $IMM
-            8'b00100010: begin
+            8'b00011110: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_EXEC: begin
                         if (cur_instruction[23:8] == 0) begin
