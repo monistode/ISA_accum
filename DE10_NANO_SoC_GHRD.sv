@@ -398,7 +398,7 @@ if (
             end
         endcase
     end else if (cur_cpu_state == CPU_STATE_INSTR_DECODE_1) begin
-        if (cur_instruction[0]) PC <= PC + 16'd3;
+        if (cur_instruction[7]) PC <= PC + 16'd3;
         else PC <= PC + 16'd1;
     end else begin
         case (cur_instruction[7:0])
@@ -2873,7 +2873,7 @@ if (
             end
 
             // OUT $IMM
-            8'b10010000: begin
+            8'b10011000: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_EXEC: begin
                         if (cur_instruction[23:8] == 0) begin
