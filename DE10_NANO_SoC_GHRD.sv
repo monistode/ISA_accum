@@ -543,13 +543,11 @@ if (
             // LOADI1
             8'b00011111: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) ACC <= IR1;
-                else if (cur_cpu_state == CPU_STATE_INSTR_WRITEBACK) ACC <= {ACC[7:0], ACC[15:8]};
             end
 
             // LOADI2
             8'b00100000: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) ACC <= IR2;
-                else if (cur_cpu_state == CPU_STATE_INSTR_WRITEBACK) ACC <= {ACC[7:0], ACC[15:8]};
             end
 
             // STORE1
