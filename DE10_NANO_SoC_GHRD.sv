@@ -1002,6 +1002,7 @@ if (
                         byte_enable <= 4'b1111;
                         tmp_address <= {cur_instruction[15:8], cur_instruction[23:16]};
                         address <= {cur_instruction[15:8], cur_instruction[23:16], 2'b00}; 
+                        PC <= PC + 16'd2;
                     end
 
                     CPU_STATE_INSTR_OPERAND_FETCH: begin
@@ -2266,51 +2267,12 @@ if (
                 endcase
             end
 
-            // NOT [$MEM]
+            // NOT
             8'b00010011: begin
                 case (cur_cpu_state)
                     CPU_STATE_INSTR_IMM_FETCH: begin
-                        read_req <= 1;
-                        byte_enable <= 4'b1111;
-                        tmp_address <= cur_instruction[23:8];
-                        address <= {cur_instruction[23:10], 2'b00}; 
+                        ACC <= ~ACC;
                     end
-
-                    CPU_STATE_INSTR_OPERAND_FETCH: begin
-                        case (tmp_address[1:0])
-                            2'b00: tmp_word <= data[15:0];
-                            2'b01: tmp_word <= data[23:8];
-                            2'b10: tmp_word <= data[31:16];
-                            2'b11: begin
-                                tmp_word[7:0] <= data[31:24];
-                                read_req <= 1;
-                                byte_enable <= 4'b1111;
-                                address <= {tmp_address[15:2], 2'b00} + 16'd4;
-                            end
-                            default: begin
-                            end
-                        endcase
-                    end
-
-                    CPU_STATE_INSTR_EXEC: begin
-                        if (tmp_address[1:0] == 2'b11) begin
-                            tmp_word[15:8] <= data[7:0];
-                            ACC <= ~{data[7:0], tmp_word[7:0]};
-                        end else ACC <= ~tmp_word;
-                        FR <= 16'd0;
-                        cur_imm <= ACC;
-                    end
-
-                    CPU_STATE_INSTR_WRITEBACK: begin
-                        FR[0] <= ACC < tmp_word;
-                        FR[1] <= (
-                            (~ACC[15] & tmp_word[15] & cur_imm[15]) |
-                            (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
-                        );
-                        FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
-                    end
-
                     default: begin
                     end
                 endcase
