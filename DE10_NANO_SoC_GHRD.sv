@@ -459,7 +459,6 @@ if (
             // LOADF
             8'b00000010: begin
                 if (cur_cpu_state == CPU_STATE_INSTR_EXEC) ACC <= FR;
-                else if (cur_cpu_state == CPU_STATE_INSTR_WRITEBACK) ACC <= {ACC[7:0], ACC[15:8]};
             end
 
             // LOAD1
@@ -563,12 +562,12 @@ if (
                         case (IR1[1:0])
                             2'b00: begin
                                 byte_enable <= 4'b0011;
-                                write_data <= {2{ACC}};
+                                write_data <= {2{ACC[7:0], ACC[15:8]}};
                             end
 
                             2'b10: begin
                                 byte_enable <= 4'b1100;
-                                write_data <= {2{ACC}};
+                                write_data <= {2{ACC[7:0], ACC[15:8]}};
                             end
 
                             2'b01: begin
@@ -606,10 +605,6 @@ if (
                             end
                         endcase
 
-                    end
-
-                    CPU_STATE_INSTR_WRITEBACK: begin
-                        ACC <= {ACC[7:0], ACC[15:8]};
                     end
 
                     default: begin
@@ -689,12 +684,12 @@ if (
                         case (IR2[1:0])
                             2'b00: begin
                                 byte_enable <= 4'b0011;
-                                write_data <= {2{ACC}};
+                                write_data <= {2{ACC[7:0], ACC[15:8]}};
                             end
 
                             2'b10: begin
                                 byte_enable <= 4'b1100;
-                                write_data <= {2{ACC}};
+                                write_data <= {2{ACC[7:0], ACC[15:8]}};
                             end
 
                             2'b01: begin
@@ -732,10 +727,6 @@ if (
                             end
                         endcase
 
-                    end
-
-                    CPU_STATE_INSTR_WRITEBACK: begin
-                        ACC <= {ACC[7:0], ACC[15:8]};
                     end
 
                     default: begin
@@ -1038,7 +1029,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -1091,7 +1082,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -1144,7 +1135,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -1197,7 +1188,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -1250,7 +1241,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -1303,7 +1294,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -1655,7 +1646,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -1730,7 +1721,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -1833,7 +1824,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -1886,7 +1877,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -1939,7 +1930,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -1992,7 +1983,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -2045,7 +2036,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -2098,7 +2089,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -2151,7 +2142,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -2204,7 +2195,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -2257,7 +2248,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -2318,7 +2309,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -2368,7 +2359,7 @@ if (
                             (ACC[15] & ~tmp_word[15] & ~cur_imm[15])
                         );
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -2389,7 +2380,7 @@ if (
                         FR[0] <= cur_imm[15];
                         FR[1] <= ACC[15] ^ cur_imm[15];
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
@@ -2410,7 +2401,7 @@ if (
                         FR[0] <= cur_imm[15];
                         FR[1] <= ACC[15] ^ cur_imm[15];
                         FR[2] <= ACC[15];
-                        FR[3] <= ~(|ACC);
+                        FR[3] <= ~(ACC != 0);
                     end
 
                     default: begin
